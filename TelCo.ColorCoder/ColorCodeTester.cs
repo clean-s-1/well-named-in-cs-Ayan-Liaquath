@@ -44,6 +44,9 @@ namespace TelCo.ColorCoder
             pairNumber = pairNumberCalculator.ConvertColorPairToPairNumber(testPair);
             Console.WriteLine("[In]Colors: {0}, [Out] PairNumber: {1}", testPair, pairNumber);
             Debug.Assert(pairNumber.Equals(6));
+
+            ColorCodeManualGenerator colorCodeManualGenerator = new ColorCodeManualGenerator();
+            Console.WriteLine(colorCodeManualGenerator.GenerateManual());
         }
     }
 }
