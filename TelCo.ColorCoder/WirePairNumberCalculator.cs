@@ -6,7 +6,7 @@ namespace TelCo.ColorCoder
     {
         internal int ConvertColorPairToPairNumber(WireColorPair colorPair)
         {
-            int majorColorIndex = -1;
+            int majorColorIndex = -1; // Invalid index (Not found status by default)  
             for (int i = 0; i < WireColorStore.MajorColors.Length; i++)
             {
                 if (WireColorStore.MajorColors[i] == colorPair.MajorColor)
@@ -16,7 +16,7 @@ namespace TelCo.ColorCoder
                 }
             }
 
-            int minorColorIndex = -1;
+            int minorColorIndex = -1; // Invalid index (Not found status by default)
             for (int i = 0; i < WireColorStore.MinorColors.Length; i++)
             {
                 if (WireColorStore.MinorColors[i] == colorPair.MinorColor)
@@ -31,7 +31,7 @@ namespace TelCo.ColorCoder
                 throw new ArgumentException($"Unknown Colors: {colorPair}");
             }
 
-            int pairNumber = (majorColorIndex * WireColorStore.MinorColors.Length) + (minorColorIndex + 1); // Note: 1 is added as array index starts from 0.
+            int pairNumber = (majorColorIndex * WireColorStore.MinorColors.Length) + (minorColorIndex + 1); // Note: +1 as array index starts from 0.
             return pairNumber;
         }
     }
