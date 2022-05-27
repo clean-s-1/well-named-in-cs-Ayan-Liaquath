@@ -57,10 +57,6 @@ namespace TelCo.ColorCoder
             var colorCodeData = manual.First(colorCode => colorCode.PairNumber.Equals(pairNumber));
             Debug.Assert(colorCodeData.MajorColor.Equals(testPair.MajorColor));
             Debug.Assert(colorCodeData.MinorColor.Equals(testPair.MinorColor));
-            foreach (var colorCode in manual)
-            {
-                Console.WriteLine(colorCode.PairNumber + "\t" + colorCode.MajorColor.Name + "\t" + colorCode.MinorColor.Name + "\n");
-            }
         }
     }
 }
