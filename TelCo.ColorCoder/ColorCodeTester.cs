@@ -3,6 +3,7 @@ namespace TelCo.ColorCoder
     using System;
     using System.Diagnostics;
     using System.Drawing;
+    using System.Linq;
 
     /// <summary>
     /// The 25-pair color code, originally known as even-count color code, 
@@ -52,12 +53,11 @@ namespace TelCo.ColorCoder
             Debug.Assert(pairNumber.Equals(6));
 
             ColorCodeManualGenerator colorCodeManualGenerator = new ColorCodeManualGenerator();
-            string manual = colorCodeManualGenerator.GenerateManual();
-            Debug.Assert(!string.IsNullOrEmpty(manual));
-            Debug.Assert(manual.Contains(pairNumber.ToString()));
-            Debug.Assert(manual.Contains(testPair.MajorColor.Name));
-            Debug.Assert(manual.Contains(testPair.MinorColor.Name));
-            Debug.Assert(!manual.Contains("26"));
+            var manual = colorCodeManualGenerator.GenerateManual();
+            Debug.Assert(manual != null && manual.Count > 0);
+            var colorCodeData = manual.First(colorCode => colorCode.PairNumber.Equals(pairNumber));
+            Debug.Assert(colorCodeData.MajorColor.Equals(testPair.MajorColor));
+            Debug.Assert(colorCodeData.MinorColor.Equals(testPair.MinorColor));
         }
     }
 }
