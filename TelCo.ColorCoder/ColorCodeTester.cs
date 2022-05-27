@@ -52,12 +52,15 @@ namespace TelCo.ColorCoder
             Debug.Assert(pairNumber.Equals(6));
 
             ColorCodeManualGenerator colorCodeManualGenerator = new ColorCodeManualGenerator();
-            string manual = colorCodeManualGenerator.GenerateManual();
-            Debug.Assert(!string.IsNullOrEmpty(manual));
-            Debug.Assert(manual.Contains(pairNumber.ToString()));
-            Debug.Assert(manual.Contains(testPair.MajorColor.Name));
-            Debug.Assert(manual.Contains(testPair.MinorColor.Name));
-            Debug.Assert(!manual.Contains("26"));
+            var manual = colorCodeManualGenerator.GenerateManual();
+            Debug.Assert(manual != null && manual.Count > 0);
+            var colorCodeData = manual.First(colorCode => colorCode.PairNumber.Equals(pairNumber));
+            Debug.Assert(colorCodeData.MajorColor.Equals(testPair.MajorColor));
+            Debug.Assert(colorCodeData.MinorColor.Equals(testPair.MinorColor));
+            foreach (var colorCode in manual)
+            {
+                Console.WriteLine(colorCode.PairNumber + "\t" + colorCode.MajorColor.Name + "\t" + colorCode.MinorColor.Name + "\n");
+            }
         }
     }
 }
