@@ -19,34 +19,54 @@ namespace TelCo.ColorCoder
 
             int pairNumber = 4;
             WireColorPair testPair = colorPairCalculator.ConvertPairNumberToColorPair(pairNumber);
-            Console.WriteLine("[In]Pair Number: {0},[Out] Colors: {1}\n", pairNumber, testPair);
             Debug.Assert(testPair.MajorColor.Equals(Color.White));
             Debug.Assert(testPair.MinorColor.Equals(Color.Brown));
 
             pairNumber = 5;
             testPair = colorPairCalculator.ConvertPairNumberToColorPair(pairNumber);
-            Console.WriteLine("[In]Pair Number: {0},[Out] Colors: {1}\n", pairNumber, testPair);
             Debug.Assert(testPair.MajorColor.Equals(Color.White));
             Debug.Assert(testPair.MinorColor.Equals(Color.SlateGray));
 
             pairNumber = 23;
             testPair = colorPairCalculator.ConvertPairNumberToColorPair(pairNumber);
-            Console.WriteLine("[In]Pair Number: {0},[Out] Colors: {1}\n", pairNumber, testPair);
             Debug.Assert(testPair.MajorColor.Equals(Color.Violet));
             Debug.Assert(testPair.MinorColor.Equals(Color.Green));
 
+            pairNumber = -1;
+            try
+            {
+                colorPairCalculator.ConvertPairNumberToColorPair(pairNumber);
+                Debug.Fail("Expected an exception.");
+            }
+            catch (ArgumentException argumentException)
+            {
+                Debug.Assert(argumentException.ParamName.Equals($"Argument PairNumber:{pairNumber} is outside the allowed range of 1-25."));
+            }
+
             testPair = new WireColorPair { MajorColor = Color.Yellow, MinorColor = Color.Green };
             pairNumber = pairNumberCalculator.ConvertColorPairToPairNumber(testPair);
-            Console.WriteLine("[In]Colors: {0}, [Out] PairNumber: {1}\n", testPair, pairNumber);
             Debug.Assert(pairNumber.Equals(18));
 
             testPair = new WireColorPair { MajorColor = Color.Red, MinorColor = Color.Blue };
             pairNumber = pairNumberCalculator.ConvertColorPairToPairNumber(testPair);
-            Console.WriteLine("[In]Colors: {0}, [Out] PairNumber: {1}", testPair, pairNumber);
             Debug.Assert(pairNumber.Equals(6));
 
             ColorCodeManualGenerator colorCodeManualGenerator = new ColorCodeManualGenerator();
-            Console.WriteLine(colorCodeManualGenerator.GenerateManual());
+            string manual = colorCodeManualGenerator.GenerateManual();
+            Debug.Assert(!string.IsNullOrEmpty(manual));
+            string[] manualLines = manual.Split("\n");
+            pairNumber = 1;
+            int index = 4;
+            Debug.Assert(manualLines[index - 1].Contains("-------------------------------------------"));
+            for (; index < manualLines.Length - 2; index++)
+            {
+                testPair = colorPairCalculator.ConvertPairNumberToColorPair(pairNumber);
+                Debug.Assert(manualLines[index].Contains(pairNumber.ToString()));
+                Debug.Assert(manualLines[index].Contains(testPair.MajorColor.Name));
+                Debug.Assert(manualLines[index].Contains(testPair.MinorColor.Name));
+                pairNumber++;
+            }
+            Debug.Assert(manualLines[index].Contains("-------------------------------------------"));
         }
     }
 }
