@@ -1,5 +1,8 @@
 namespace TelCo.ColorCoder
 {
+    using System.Collections.Generic;
+    using System.Drawing;
+    
     internal class ColorCodeManualGenerator
     {
         internal IList<(int PairNumber, Color MajorColor, Color MinorColor)> GenerateManual()
