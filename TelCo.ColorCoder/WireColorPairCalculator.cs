@@ -25,6 +25,8 @@ namespace TelCo.ColorCoder
                 MinorColor = WireColorStore.MinorColors[minorColorIndex]
             };
 
+            Console.WriteLine("[In]Pair Number: {0},[Out] Colors: {1}\n", pairNumber, wireColorPair);
+
             return wireColorPair;
         }
     }
