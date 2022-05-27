@@ -54,19 +54,10 @@ namespace TelCo.ColorCoder
             ColorCodeManualGenerator colorCodeManualGenerator = new ColorCodeManualGenerator();
             string manual = colorCodeManualGenerator.GenerateManual();
             Debug.Assert(!string.IsNullOrEmpty(manual));
-            string[] manualLines = manual.Split("\n");
-            pairNumber = 1;
-            int index = 4;
-            Debug.Assert(manualLines[index - 1].Contains("-------------------------------------------"));
-            for (; index < manualLines.Length - 2; index++)
-            {
-                testPair = colorPairCalculator.ConvertPairNumberToColorPair(pairNumber);
-                Debug.Assert(manualLines[index].Contains(pairNumber.ToString()));
-                Debug.Assert(manualLines[index].Contains(testPair.MajorColor.Name));
-                Debug.Assert(manualLines[index].Contains(testPair.MinorColor.Name));
-                pairNumber++;
-            }
-            Debug.Assert(manualLines[index].Contains("-------------------------------------------"));
+            Debug.Assert(manual.Contains(pairNumber.ToString()));
+            Debug.Assert(manual.Contains(testPair.MajorColor.Name));
+            Debug.Assert(manual.Contains(testPair.MinorColor.Name));
+            Debug.Assert(!manual.Contains("26"));
         }
     }
 }
