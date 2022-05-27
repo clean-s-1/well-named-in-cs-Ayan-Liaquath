@@ -3,6 +3,7 @@ namespace TelCo.ColorCoder
     using System;
     using System.Diagnostics;
     using System.Drawing;
+    using System.Linq;
 
     /// <summary>
     /// The 25-pair color code, originally known as even-count color code, 
