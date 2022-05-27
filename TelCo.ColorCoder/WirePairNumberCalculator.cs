@@ -32,6 +32,8 @@ namespace TelCo.ColorCoder
             }
 
             int pairNumber = (majorColorIndex * WireColorStore.MinorColors.Length) + (minorColorIndex + 1); // Note: +1 as array index starts from 0.
+            
+            Console.WriteLine("[In]Colors: {0}, [Out] PairNumber: {1}\n", colorPair, pairNumber);
             return pairNumber;
         }
     }
